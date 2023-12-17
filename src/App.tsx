@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import HomePage from "./pages/homepage";
+import PageDetail from "./pages/PageDetail";
 import "./App.css";
 // import HomePage from './pages/HomePages'
 // import DetailPage from './pages/DetailPages'
@@ -14,13 +15,13 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "",
+    path: "/detail/:id",
+    element: <PageDetail />,
+  },
+  {
+    path: "/",
     element: <HomePage />,
   },
-  // {
-  //   path: '/detail/:id',
-  //   element: < DetailPage />
-  // },
   {
     path: "*", //Qualsiasi cosa ci sia scritto
     //element: <h1>404</h1>,  //apri pagina 404 custom
