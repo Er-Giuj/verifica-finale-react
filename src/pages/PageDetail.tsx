@@ -5,10 +5,15 @@ import '../App.css';
 
 const PageDetail = () => {
   const { event, isLoading } = useEvent();
-  // const [formVisible, setFormVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
-
+  // logica tags
+  let tags = event?.tags.join(' ');
+  // logica Included_Drinks/Dishes
+  let includedDrinks = event?.includedDrinks.join(' ');
+  if(event?.isAperitivoIncluded == true){
+    // let includedDishes = event.includedDishes[0];
+  }
   const openForm = (slot:any) => {
     setSelectedSlot(slot);
     setModalVisible(true);
@@ -33,19 +38,22 @@ const PageDetail = () => {
 
   return (
     <>
+    <div className="container-content">
       <div className="container-fluid ">
         {/* Sezione Navbar*/}
         <div className="container-nav">
-          <nav className="navbar navbar-dark">
+        <nav className="navbar d-flex justify-content-start align-items-center">
+          <div className="row">
             <a className="navbar-brand" href="/homepage">
-              <img src={img} width="30" height="30" alt="" />
+              <img src={img} width="30" height="30" alt="Immagine Logo" className="logo" />
             </a>
-          </nav>
+          </div>
+        </nav>
         </div>
         {/* Sezione Nome Evento*/}
-        <div className="container bg-light">
+        <div className="container-fluid">
           <div className="row justify-content-center align-items-center">
-            <h2 className="text-center ">
+            <h2 className="text-center bald">
               {event?.name}
             </h2>
           </div>
@@ -53,28 +61,74 @@ const PageDetail = () => {
         {/* Sezione Immagine Sfondo / Prezzo / Data */}
         <div className="container">
           <div className="row">
-            {/* Immagine */}
+            {/* Sezione Immagine */}
             <div className="col-lg-8">
               <img src={event?.coverImage} alt={`${event?.name} immagine`} className="img-fluid" />
             </div>
-            {/* Prezzo / Data (dare Background alla parte bianca che c'è tra le due row*/}
+            {/* Sezione Prezzo / Data*/}
             <div className="col-lg-4 d-flex align-items-center flex-column justify-content-around">
               <div className="row">
-                <h3 className="text-danger">Short Description</h3>
+                <h3 className="text-orange">Short Description</h3>
                 <h4 className="bold">{event?.description.short}</h4>
               </div>
-              <div className="row align-items-center">
-                <div className="col-lg-6 text-start">
-                  Price: {event?.price}€
+              <div className="row align-items-center text-center">
+                <div className="col-sm-12 col-lg-6  text-lg-start text-sm-center">
+                  {/* <h3><p className="text-orange">Price: </p>{event?.price}€</h3> */}
+                  <h3 className="d-flex align-items-center justify-content-center ">
+                    <span className="text-orange">Price: </span>
+                    <span className="ms-2">{event?.price}€</span>
+                  </h3>
                 </div>
-                <div className="col-lg-6 text-end">
-                  Data:{event?.data}
+                <div className="col-sm-12 col-lg-6 text-lg-end">
+                <h3 className="d-flex align-items-center justify-content-center ">
+                    <span className="text-orange">Data: </span>
+                    <span className="ms-2">{event?.data}</span>
+                  </h3>
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* Sezione Tag / Dresscode */}
+        <div className="container mt-sm-2 mt-lg-4">
+          <div className="row">
+            {/* Sezione Tag */}
+            <div className="col-6">
+              <h5 className="text-orange">Tags:</h5>
+              <h4>{tags}</h4>
+            </div>
+            {/* Sezione Dresscode */}
+            <div className="col-6">
+              <h5 className="text-orange">Dresscode:</h5>
+              <h4>{event?.dresscode}</h4>
+            </div>
+          </div>
+        </div>
+        {/* Sezione Drink / Dishesh */}
+        {event?.isAperitivoIncluded && (
+          <div className="container mt-sm-2 mt-lg-4">
+            <div className="row">
+              <div className="col-sm-12 col-lg-12">
+                <h5 className="text-orange">Drinks:</h5>
+                <h4>{includedDrinks}</h4>
+              </div>
+              {event?.includedDishes && (
+                <div className="col-sm-12 col-lg-12 mt-sm-2">
+                  <h5 className="text-orange">Dishes:</h5>
+                  <h4 className="bald">{event?.includedDishes[0].name}</h4>
+                  <h4 className="bald">{event?.includedDishes[0].description}</h4>
+                  <h4 className="d-flex align-items-center justify-content-center ">
+                    <span className="text-orange">Allergens: </span>
+                    <span className="ms-2">{event?.includedDishes[0].allergens[0]}</span>
+                    <span className="ms-2">{event?.includedDishes[0].allergens[1]}</span>
+                    <span className="ms-2">{event?.includedDishes[0].allergens[2]}</span>
+                  </h4>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* Sezione Slot Temporali */}
         {event?.slotOrari.map((slot) => (
           <div key={slot}>
             <button className="btn btn-primary" onClick={() => openForm(slot)}>
@@ -133,6 +187,7 @@ const PageDetail = () => {
           </div>
         ))}
       </div>
+    </div>
     </>
   );
 };

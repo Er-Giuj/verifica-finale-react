@@ -2,12 +2,36 @@
     max-width: 100%;
     text-align: center;
     width: 100%;
+    background-image: url('./assets/sfondo-background.jpg');
+    /* Sostituisci 'path/immagine.jpg' con il percorso reale della tua immagine */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    /* Per assicurarti che non ci siano margini intorno al body */
+    padding: 0;
+    padding-top: 80px;
+    /* Per assicurarti che non ci siano riempimenti intorno al body */
+    /* Per assicurarti che il body occupi l'intera altezza della viewport */
+    /* Aggiungi altre proprietà CSS se necessario */
 }
 
 body {
     display: block;
     height: 100%;
     width: 100%;
+    background-image: url('./assets/sfondo-background.jpg');
+    /* Sostituisci 'path/immagine.jpg' con il percorso reale della tua immagine */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    /* Per assicurarti che non ci siano margini intorno al body */
+    padding: 0;
+    padding-top: 80px;
+    /* Per assicurarti che non ci siano riempimenti intorno al body */
+    /* Per assicurarti che il body occupi l'intera altezza della viewport */
+    /* Aggiungi altre proprietà CSS se necessario */
 }
 
 .logo {
@@ -50,12 +74,33 @@ body {
     /* background-color: black; */
 }
 
-.container-img {
-    height: 70%;
+.container-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    /* Imposta un indice di profondità superiore per far comparire il logo sopra l'immagine */
     width: 100%;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Imposta un colore di sfondo nero trasparente per la navbar */
 }
 
-.container-list {}
+.container-content {
+    margin-top: 70px;
+    /* Aggiungi un margine superiore per spostare il contenuto sotto la navbar */
+}
 
-.container-navbar {}
+img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+h2 {
+    font-size: 4rem;
+    color: black;
+}
+
+.text-orange {
+    color: orange;
+}
