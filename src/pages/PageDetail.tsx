@@ -7,6 +7,7 @@ const PageDetail = () => {
   const { event, isLoading } = useEvent();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   // logica tags
   let tags = event?.tags.join(' ');
   // logica Included_Drinks/Dishes
@@ -17,18 +18,22 @@ const PageDetail = () => {
   const openForm = (slot:any) => {
     setSelectedSlot(slot);
     setModalVisible(true);
+    setFormSubmitted(false); // Resetta il flag quando il form viene aperto
   };
 
   const handleSubmit = (event:any) => {
     event.preventDefault();
     // Puoi inserire qui la logica per inviare il modulo al server
-    // e poi mostrare la modale di successo.
-    setModalVisible(true);
+    setTimeout(() => {
+      setFormSubmitted(true);
+      setModalVisible(true);
+    }, 1000); 
   };
 
   const closeModal = () => {
     setSelectedSlot(null);
     setModalVisible(false);
+    setFormSubmitted(false); // Resetta il flag quando il form viene aperto
   };
 
   if (isLoading) {
@@ -129,16 +134,22 @@ const PageDetail = () => {
           </div>
         )}
         {/* Sezione Slot Temporali */}
-        {event?.slotOrari.map((slot) => (
-          <div key={slot}>
-            <button className="btn btn-primary" onClick={() => openForm(slot)}>
+
+<div className="container">
+
+                
+        {event?.slotOrari.map((slot,index) => (
+          <div key={slot} className={`col-lg-6 col-sm-12 mb-2 ${index % 2 === 0 ? 'start-new-row' : ''}`}>
+
+            <button className="btn btn-primary " onClick={() => openForm(slot)}>
               {slot}
             </button>
+
 
             {selectedSlot === slot && (
               <div>
                 <form onSubmit={handleSubmit}>
-                  <div className="form-group">
+                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input type="email" className="form-control" id="email" placeholder="Inserisci l'email" />
                   </div>
@@ -160,7 +171,8 @@ const PageDetail = () => {
                 </form>
 
                 {/* Modal di successo */}
-                {modalVisible && (
+                {modalVisible && formSubmitted && (
+                  
                   <div className="modal" role="dialog" style={{ display: 'block' }}>
                     <div className="modal-dialog" role="document">
                       <div className="modal-content">
@@ -181,13 +193,15 @@ const PageDetail = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                  
+                  )}
               </div>
             )}
           </div>
         ))}
       </div>
     </div>
+        </div>
     </>
   );
 };
